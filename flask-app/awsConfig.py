@@ -1,7 +1,7 @@
 import boto3
 
 aws_config = {
-    "region": "ap-norheast-2",
+    "region": "ap-northeast-2",
     "endpoint": "http://dynamodb.ap-northeast-2.amazonaws.com"
 }
 
