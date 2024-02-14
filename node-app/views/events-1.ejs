@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticketing detail</title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <header>
+    <img id="logo" src="/public/images/ver2_black.png" alt="Ticketing Website Logo">
+    
+    <h1>Welcome to our Ticketing Website</h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/events">Events</a></li>
+        <!-- 로그인 상태에 따라 다르게 표시 -->
+        <% if (user) { %>
+          <li><a href="/profile">MyPage</a></li>
+          <li><a href="/logout">Logout</a></li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+        <% } %>
+      </ul>
+    </nav>
+
+    
+  </header>
+  <main>
+    <img id= "event-1" src="/public/images/길.gif" alt="event-title" style="float: left; margin-right: 10px;">
+    <h1>주영언니 데뷔작 뮤지컬 '길'</h1>
+    <script>
+
+      function bookTicket() {
+        fetch('/bookTicket')
+          .then(response => {
+            if (response.redirected) {
+              window.location.href = response.url; // 리다이렉트된 URL로 이동
+            } else {
+              console.error('Failed to redirect to login page.');
+            }
+          })
+          .catch(error => {
+            console.error('Error occurred while fetching bookTicket endpoint:', error);
+          });
+      }
+      </script>
+    
+    <button onclick="bookTicket()">예매하기</button>
+  </main>
+  
+
+  <footer>
+    <p>&copy; 2024 Ticketing Website</p>
+  </footer>
+</body>
+</html>

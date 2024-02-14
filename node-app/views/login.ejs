@@ -1,0 +1,80 @@
+<!-- views/login.ejs -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= pageTitle %></title>
+  <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+  <header>
+    <h1><%= pageTitle %></h1>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/events">Events</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="login-container">
+      <h2>로그인</h2>
+      <label for="userId">ID</label>
+      <input type="text" id="userId" required>
+      <br>
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+      <button onclick="login()">로그인</button>
+    </section>
+
+    <section id="join-container">
+      <h2>회원가입</h2>
+      <li><a href="/join">회원가입</a></li>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Ticketing Website</p>
+  </footer>
+  
+  <script>
+    
+    function login() {
+      // 여기에 로그인 처리를 위한 JavaScript 코드를 추가
+      const userId = document.getElementById('userId').value;
+      const password = document.getElementById('password').value;
+      console.log('로그인 버튼이 클릭되었습니다.');
+       // AJAX 또는 Fetch API를 사용하여 서버에 로그인 정보 전송
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, password }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('로그인이 완료되었습니다.');
+          // 현재 페이지 URL을 확인하고, 리다이렉션 수행
+          // window.location.href = '/';
+          const currentPageUrl = window.location.pathname;
+          if (currentPageUrl === '/events/login') {
+            window.location.href = '/seats';
+          } else {
+            window.location.href = '/';
+          }
+        } else {
+          alert('사용자명 또는 비밀번호가 올바르지 않습니다.');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  }
+    
+  </script>
+</body>
+</html>
