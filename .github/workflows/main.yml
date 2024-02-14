@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./node-app
+        working-directory: ./node-app/
 
     steps:
     - uses: actions/checkout@v3
@@ -45,6 +45,7 @@ jobs:
       with:
         node-version: '21.6'
         cache: 'npm'
+        cache-dependency-path: './node-app/package-lock.json'
 
     - name: Setup Node.js environment
       run: |
