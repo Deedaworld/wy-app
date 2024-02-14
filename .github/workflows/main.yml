@@ -13,10 +13,7 @@ on:
 jobs:
   Continuous_Integration:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./node-app/
-
+    
     steps:
     - uses: actions/checkout@v3
 
@@ -48,17 +45,20 @@ jobs:
         cache-dependency-path: './node-app/package-lock.json'
 
     - name: Setup Node.js environment
+      working-directory: ./node-app/
       run: |
         npm ci
         npm run build --if-present
         npm test
 
     - name: Docker Image Build
+      working-directory: ./node-app/
       id: build-image
       run: |
         docker build -t ${{ env.ECR_REGISTRY }}/${{ env. ECR_REPOSITORY }}:${{env.IMAGE_TAG}} .
 
     - name: Docker Image Push
+      working-directory: ./node-app/
       id: push-image
       run: |
         docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY}}:${{ env.IMAGE_TAG }}
