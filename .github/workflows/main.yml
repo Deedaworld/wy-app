@@ -72,12 +72,12 @@ jobs:
       run: |
         sed -i "s@ \
         image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:.*@ \
-        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG}}@g" deployment.yml
+        image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG}}@g" node-deployment.yml
 
     - name: Commit and Push
       run: |
         git config user.email ${{ env.GIT_EMAIL }}
         git config user.name ${{ env.GIT_NAME}}
-        git add deployment.yml
+        git add node-deployment.yml
         git commit -m "Update image tag"
         git push origin main
