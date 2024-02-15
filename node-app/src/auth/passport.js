@@ -49,21 +49,21 @@ passport.deserializeUser((id, done) => {
     });
 });
 // // Express 애플리케이션에 Passport 초기화 및 세션 설정
-// app.use(require('express-session')({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: false
-//   }));
-//   app.use(passport.initialize());
-//   app.use(passport.session());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+  }));
+app.use(passport.initialize());
+app.use(passport.session());
   
 //   // 사용자 인증을 위한 미들웨어 정의
-//   function isAuthenticated(req, res, next) {
-//     if (req.isAuthenticated()) {
-//       return next();
-//     }
-//     res.redirect('/login');
-//   }
+  function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.redirect('/login');
+  }
   
   
 
