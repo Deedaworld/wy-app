@@ -39,10 +39,16 @@
   app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      secure: false, 
+      maxAge: 1000 * 60 * 60 * 24, 
+    }
   }));
+  
   app.use(passport.initialize());
   app.use(passport.session());
+
   const cors = require('cors');
   app.use(cors());
 
