@@ -15,7 +15,11 @@ table = dynamodb.Table('init-db')
 
 @app.route('/')
 def hello_fnc():
-    return 'hello?'
+    r = redis.Redis(host=redis_host, port=redis_port)
+    data = r.lrange("A-sector", 0, -1)
+
+    return jsonify({"list_data": data})
+
 
 @app.route('/get-seat-data/<sector>/<id>', methods=['GET'])
 def get_seat_data(sector, id):
