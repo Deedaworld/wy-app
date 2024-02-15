@@ -1,4 +1,3 @@
-
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
@@ -37,8 +36,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    // 이 부분은 데이터베이스에서 사용자를 찾아서 처리하는 코드를 작성해야 합니다.
-    // 예시 코드이므로 실제 사용되는 데이터베이스에 따라 코드를 수정해야 합니다.
+
     const query = 'SELECT * FROM users WHERE id = ?';
     connection.query(query, [id], (err, results) => {
         if (err) {
@@ -48,5 +46,7 @@ passport.deserializeUser((id, done) => {
         done(null, user);
     });
 });
+
+
 
 module.exports = passport;
