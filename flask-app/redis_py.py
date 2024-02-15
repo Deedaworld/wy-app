@@ -23,7 +23,6 @@ def hello_fnc():
         return jsonify({"error": "No data available"})
 
 
-
 @app.route('/get-seat-data/<sector>/<id>', methods=['GET'])
 def get_seat_data(sector, id):
     try:
@@ -40,7 +39,7 @@ def get_seat_data(sector, id):
         #     return jsonify({"seat_id": -1})
 
         # 데이터 가져오기
-        value = r.lpop("A-sector")
+        value = r.lpop(f"{sector}-sector")
         print("Value from Redis:", value)
         
         if value:
