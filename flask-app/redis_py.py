@@ -47,17 +47,17 @@ def get_seat_data(sector, id):
             # Redis에서 가져온 데이터
             seat_id = value.decode("utf-8")
 
-            # DynamoDB에 데이터 입력
-            putitem = {
-                'users.id': 62,
-                'seat_id': seat_id
-            }
+            # # DynamoDB에 데이터 입력
+            # putitem = {
+            #     'users.id': 62,
+            #     'seat_id': seat_id
+            # }
 
-            print(putitem)
+            # print(putitem)
 
-            table.put_item(
-                Item=putitem
-            )
+            # table.put_item(
+            #     Item=putitem
+            # )
 
             return jsonify({"seat_id": seat_id})
         else:
