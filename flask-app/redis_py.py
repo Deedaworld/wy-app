@@ -37,6 +37,8 @@ def get_seat_data(sector, id):
 
         # 데이터 가져오기
         value = r.lpop(f"{sector}-sector")
+        print("Value from Redis:", value)
+        
         if value:
             # Redis에서 가져온 데이터
             seat_id = value.decode("utf-8")
