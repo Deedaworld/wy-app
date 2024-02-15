@@ -47,13 +47,5 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
 
 module.exports = passport;
