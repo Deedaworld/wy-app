@@ -263,7 +263,7 @@
 
   app.post('/pop-seat', async (req, res) => {
     try {
-      const id = req.session.id;
+      const id = req.session.user.id;
       const selectedSeat = req.body.seat; // 클라이언트에서 선택한 좌석
       const sector = selectedSeat.split('-')[0]; // 좌석에서 섹터 부분 추출
       const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${sector}/${id}`);
