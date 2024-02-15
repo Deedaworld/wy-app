@@ -67,10 +67,10 @@
                 // const id = '<%= user.id %>';
                 const response = await axios.get(`/get-seat-data/${seat}/${id}`);
                 if (response.status === 200) {
+                  console.log('Data from Flask Server:', response.data);
                   const seat_id = response.data.seat_id;
-                  // console.log('Data from Flask Server:', data);
                   console.log('Data from Flask Server:', seat_id);
-                  // if (data === null) {
+                  
                   if (seat_id === null) {
                     alert('예매 실패(매진)');
                   } else if (seat_id == -1) {
@@ -81,7 +81,7 @@
                     if (confirmed) {
                       event.target.classList.toggle('selected');
                       window.location.href = '/booking-success';
-                      // alert('예매 성공 !');
+                    
                     } else {
                       alert('예매가 취소되었습니다.');
                     }
