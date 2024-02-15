@@ -12,7 +12,7 @@ redis_port = 6379
 dynamodb = get_dynamodb_resource()
 table = dynamodb.Table('init-db')
 
-@app.route('/')
+@app.route('/ticket')
 def hello_fnc():
     r = redis.Redis(host=redis_host, port=redis_port)
     data_bytes = r.lrange("A-sector", 0, -1)
