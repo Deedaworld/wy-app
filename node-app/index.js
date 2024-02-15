@@ -115,6 +115,13 @@
     });
   });
 
+  app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // 로그인 라우트에 Passport를 사용하여 로그인 인증 처리
   app.post('/login', passport.authenticate('local', {
