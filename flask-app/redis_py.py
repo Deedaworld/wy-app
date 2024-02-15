@@ -13,6 +13,10 @@ redis_port = 6379
 dynamodb = get_dynamodb_resource()
 table = dynamodb.Table('init-db')
 
+@app.route('/')
+def hello_fnc():
+    return 'hello?'
+
 @app.route('/get-seat-data/<sector>/<id>', methods=['GET'])
 def get_seat_data(sector, id):
     try:
