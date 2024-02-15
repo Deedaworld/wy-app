@@ -4,7 +4,7 @@ from flask_cors import CORS
 from awsConfig import get_dynamodb_resource
 
 app = Flask(__name__)
-CORS(app, resources={r"/get-seat-data/*": {"origins": "https://www.wouldyou.store"}})
+CORS(app)
 
 redis_host = '3.34.192.127'
 
