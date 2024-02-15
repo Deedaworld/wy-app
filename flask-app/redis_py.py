@@ -15,7 +15,7 @@ table = dynamodb.Table('init-db')
 @app.route('/ticket')
 def hello_fnc():
     r = redis.Redis(host=redis_host, port=redis_port)
-    data_bytes = r.lrange("A-sector", 0, -1)
+    data_bytes = r.lrange(f"{sector}-sector", 0, -1)
     data = [item.decode('utf-8') for item in data_bytes]
     return jsonify({"list_data": data})
 
@@ -37,10 +37,11 @@ def get_seat_data(sector, id):
 
         # 데이터 가져오기
         value = r.lpop(f"{sector}-sector")
-
         if value:
             # Redis에서 가져온 데이터
             seat_id = value.decode("utf-8")
+        else:
+            return jsonify({"seat_id": None})
 
             # DynamoDB에 데이터 입력
             putitem = {
