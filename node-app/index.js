@@ -1,9 +1,9 @@
-  const express = require('express');
+const express = require('express');
   const app = express();
   const path = require('path');
   const { fileURLToPath } = require('url');
   const { dirname } = require('path');
-  // const bcrypt = require('bcrypt');
+  const bcrypt = require('bcrypt');
   
   const connection = require('./db/db.js');
 
@@ -36,21 +36,15 @@
     next();
   }); 
 
-  //세션 초기화
+ 
   app.use(session({
-    secret: 'my key', // 암호화에 사용되는 비밀 키, 보안에 중요
-    resave: false,
-    saveUninitialized: true,
-  }));
-
-  // Express 애플리케이션에 Passport 초기화 및 세션 설정
-  app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+
 
   const cors = require('cors');
   app.use(cors());
