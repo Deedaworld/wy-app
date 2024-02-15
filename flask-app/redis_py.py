@@ -14,6 +14,7 @@ table = dynamodb.Table('init-db')
 
 @app.route('/ticket')
 def hello_fnc():
+    r = redis.Redis(host=redis_host, port=redis_port)
     value = r.lpop("A-sector")
     if value:
         seat_id = value.decode('utf-8')
