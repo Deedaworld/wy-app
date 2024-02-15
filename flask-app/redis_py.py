@@ -15,7 +15,7 @@ table = dynamodb.Table('init-db')
 @app.route('/ticket')
 def hello_fnc():
     r = redis.Redis(host=redis_host, port=redis_port)
-    data_bytes = r.lrange("A-sector", 0, -1)
+    data_bytes = r.lpop("A-sector")
     data = [item.decode('utf-8') for item in data_bytes]
     return jsonify({"list_data": data})
 
