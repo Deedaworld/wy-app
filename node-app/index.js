@@ -36,15 +36,6 @@ const express = require('express');
     next();
   }); 
 
- 
-  app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-  }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-
 
   const cors = require('cors');
   app.use(cors());
