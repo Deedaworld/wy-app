@@ -1,5 +1,6 @@
 FROM python:3
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/src/app/ticket
+WORKDIR /usr/src/app/ticket
 COPY . .
 RUN pip3 install flask
 RUN pip3 install flask-cors
