@@ -265,7 +265,7 @@
       const id = req.session.id;
       const selectedSeat = req.body.seat; // 클라이언트에서 선택한 좌석
       const sector = selectedSeat.split('-')[0]; // 좌석에서 섹터 부분 추출
-      const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${sector}/${id}`);
+      const response = await axios.get('http://wy-py-svc:5000/get-seat-data/${sector}/${id}');
       
       if (response.status === 200) {    
         const seat_id = response.data.seat_id;
