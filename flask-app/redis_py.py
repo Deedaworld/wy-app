@@ -15,8 +15,8 @@ dynamodb = get_dynamodb_resource()
 table = dynamodb.Table('init-dynamodb')
 
 @app.route('/ticket')
-def hello_fnc(id):
-    id =315
+def hello_fnc():
+    id = request.args.get('id')
     # r = redis.Redis(host=redis_host, port=redis_port)
     # value = r.lpop("A-sector")
     # if value:
@@ -39,7 +39,7 @@ def hello_fnc(id):
             return jsonify({"seat_id": seat_id}), 200
                 
         else:
-                eturn jsonify({"error": "Booking info not found"}), 404
+                return jsonify({"error": "Booking info not found"}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
