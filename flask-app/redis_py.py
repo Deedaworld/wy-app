@@ -15,7 +15,8 @@ dynamodb = get_dynamodb_resource()
 table = dynamodb.Table('init-dynamodb')
 
 @app.route('/ticket')
-def hello_fnc():
+def hello_fnc(id):
+    id =315
     # r = redis.Redis(host=redis_host, port=redis_port)
     # value = r.lpop("A-sector")
     # if value:
@@ -25,11 +26,11 @@ def hello_fnc():
     #     return jsonify({"error": "No data available"})
     try:
     # DynamoDB에서 데이터 조회
-    response = table.get_item(
-        Key={
-            'users.id': int(id)
-        }
-    )
+        response = table.get_item(
+            Key={
+                'users.id': int(id)
+            }
+        )
 
     # 조회된 데이터가 있는 경우
         if 'Item' in response:
