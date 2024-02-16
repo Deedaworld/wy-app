@@ -12,7 +12,7 @@ redis_host = '3.34.192.127'
 redis_port = 6379
 
 dynamodb = get_dynamodb_resource()
-table = dynamodb.Table('init-db')
+table = dynamodb.Table('init-dynamodb')
 
 @app.route('/ticket')
 def hello_fnc():
