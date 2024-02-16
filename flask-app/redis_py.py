@@ -67,6 +67,28 @@ def get_seat_data(sector, id):
 
     except Exception as e:
         return jsonify({"error": str(e)})
+        
+@app.route('/get-booking-info/<id>', methods=['GET'])
+def get_booking_info(id):
+    try:
+        # DynamoDB에서 데이터 조회
+        response = table.get_item(
+            Key={
+                'users.id': int(id)
+            }
+        )
+
+        # 조회된 데이터가 있는 경우
+        if 'Item' in response:
+            seat_id = response['Item'].get('seat_id')
+            print(response)
+            return jsonify({"seat_id": seat_id}), 200
+            
+        else:
+            return jsonify({"error": "Booking info not found"}), 404
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
