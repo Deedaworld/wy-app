@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 import redis
 from flask_cors import CORS
 from awsConfig import get_dynamodb_resource
+import boto3
+from botocore.exceptions import ClientError
 
 app = Flask(__name__)
 CORS(app,supports_credentials=True)
@@ -13,15 +15,33 @@ dynamodb = get_dynamodb_resource()
 table = dynamodb.Table('init-db')
 
 @app.route('/ticket')
-def hello_fnc():
-    r = redis.Redis(host=redis_host, port=redis_port)
-    value = r.lpop("A-sector")
-    if value:
-        seat_id = value.decode('utf-8')
-        return jsonify({"seat_id": seat_id})
-    else:
-        return jsonify({"error": "No data available"})
+# def hello_fnc():
+#     r = redis.Redis(host=redis_host, port=redis_port)
+#     value = r.lpop("A-sector")
+#     if value:
+#         seat_id = value.decode('utf-8')
+#         return jsonify({"seat_id": seat_id})
+#     else:
+#         return jsonify({"error": "No data available"})
 
+def get_secret():
+    secret_name = "wy/cluster/ddb"
+    region_name = "ap-northesat-2"
+
+    session = boto3.session.Session()
+    client = session.client(
+        service_name='secretsmanager',
+        region_name=region_name
+    )
+    try:
+        get_secret_value_response = client
+            .get_secret_value(
+            SecretId=secret_name
+            )
+    except ClientError as e:
+        raise e
+
+    secret = get_secret_value_response['SecretString']
 
 @app.route('/get-seat-data/<sector>/<id>', methods=['GET'])
 def get_seat_data(sector, id):
