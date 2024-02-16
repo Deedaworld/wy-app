@@ -8,7 +8,7 @@ from botocore.exceptions import ClientError
 app = Flask(__name__)
 CORS(app,supports_credentials=True)
 
-redis_host = 'init-redis-tfsu7r.serverless.apn2.cache.amazonaws.com --tls'
+redis_host = '3.34.192.127'
 redis_port = 6379
 
 dynamodb = get_dynamodb_resource()
