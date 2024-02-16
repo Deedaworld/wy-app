@@ -7,7 +7,7 @@ const dbInfo = {
     host: 'init-mysql.czuy8ksq2pce.ap-northeast-2.rds.amazonaws.com',
     user: 'admin',
     password: 'test1234',
-    database: 'init_rds',
+    database: 'init__rds',
 };
 
 // connection 변수 선언 및 초기화
