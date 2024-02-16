@@ -16,7 +16,8 @@ table = dynamodb.Table('init-dynamodb')
 
 @app.route('/ticket')
 def hello_fnc():
-    id = request.args.get('id')
+    
+    
     # r = redis.Redis(host=redis_host, port=redis_port)
     # value = r.lpop("A-sector")
     # if value:
@@ -28,7 +29,7 @@ def hello_fnc():
     # DynamoDB에서 데이터 조회
         response = table.get_item(
             Key={
-                'users.id': int(id)
+                'users.id': 315
             }
         )
 
@@ -39,7 +40,7 @@ def hello_fnc():
             return jsonify({"seat_id": seat_id}), 200
                 
         else:
-                return jsonify({"error": "Booking info not found"}), 404
+            return jsonify({"error": "Booking info not found"}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -67,17 +68,17 @@ def get_seat_data(sector, id):
             # Redis에서 가져온 데이터
             seat_id = value.decode("utf-8")
 
-            # # DynamoDB에 데이터 입력
-            # putitem = {
-            #     'users.id': 62,
-            #     'seat_id': seat_id
-            # }
+            # DynamoDB에 데이터 입력
+            putitem = {
+                'users.id': int(id),
+                'seat_id': seat_id
+            }
 
-            # print(putitem)
+            print(putitem)
 
-            # table.put_item(
-            #     Item=putitem
-            # )
+            table.put_item(
+                Item=putitem
+            )
 
             return jsonify({"seat_id": seat_id})
         else:
