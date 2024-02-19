@@ -232,6 +232,24 @@
     
   });
 
+  const events = [
+    { 
+      id: 1,
+      name: '이벤트1',
+      date: '2024-01-13',
+      title: '주영언니 데뷔작 길',
+      imageUrl: '/public/images/길.gif' 
+    },
+    { 
+      id: 2,
+      name: '이벤트2',
+      date: '2024-03-15',
+      title: '우쥬대스타의 "서울" 팬미팅',
+      imageUrl: '/public/images/우주.png' 
+    },
+    
+  ];
+
 
   // 이벤트 디테일
   app.get('/events', (req, res) => {
