@@ -21,7 +21,6 @@
   const jwt = require('jsonwebtoken');
   const LocalStrategy = require('passport-local').Strategy;
   const cookieParser = require('cookie-parser');
-
   axios.defaults.withCredentials = true;
   
   // EJS 템플릿 엔진 설정
@@ -129,13 +128,16 @@
   });
 
 
-
   // 로그인 라우트에 Passport를 사용하여 로그인 인증 처리
   app.post('/login', passport.authenticate('local', {
     successRedirect: '/home', // 로그인 성공 시 이동할 경로
     failureRedirect: '/login',     // 로그인 실패 시 이동할 경로
     failureFlash: true             // 인증 실패 시 플래시 메시지 사용 여부
   }));
+
+ 
+
+
 
   // 예매하기 버튼으로 login 눌렀을 경우 성공시 /seats로 리다이렉션
   app.post('/events-login', (req, res) => {
@@ -231,7 +233,23 @@
         
     
   });
-
+  const events = [
+    { 
+      id: 1,
+      name: '이벤트1',
+      date: '2024-01-13',
+      title: '주영언니 데뷔작 길',
+      imageUrl: '/public/images/길.gif' 
+    },
+    { 
+      id: 2,
+      name: '이벤트2',
+      date: '2024-03-15',
+      title: '우쥬대스타의 "서울" 팬미팅',
+      imageUrl: '/public/images/우주.png' 
+    },
+    
+  ];
 
   // 이벤트 디테일
   app.get('/events', (req, res) => {
@@ -248,25 +266,48 @@
     const data = {
       pageTitle: '티켓팅 웹사이트',
       events: [
-        { name: '이벤트1', date: '2024-01-13', title: '길' },
-        { name: '이벤트2', date: '2024-06-30', title: '"우쥬"대스타의 팬미팅' },
+        { id:1,name: '이벤트1', date: '2024-01-13', title: '길' },
+        { id:2, name: '이벤트2', date: '2024-03-15', title: '우쥬대스타의 "서울" 팬미팅' },
         // 추가 이벤트들...
       ],
-      user: req.session.user,
+      user: req.session.user
     };
 
     // index.ejs 템플릿을 렌더링하고, 데이터를 전달
     res.render('index', data);
   });
 
+  app.get('/events/:id', (req, res) => {
+    
+    // URL 파라미터에서 이벤트 ID 가져오기
+    const eventId = req.params.id;
+  
+    // 이벤트 ID를 기반으로 해당 이벤트 정보를 찾기
+    const event = events.find(event => event.id === parseInt(eventId));
+  
+    // 해당 이벤트가 없는 경우 404 에러 반환
+    if (!event) {
+      return res.status(404).send('Event not found');
+    }
+    // 세션에서 사용자 정보 가져오기
+    const user = req.session.user;
+  
+    // 상세 페이지 템플릿을 렌더링하고, 이벤트 데이터를 전달
+    res.render('event-details', { event: event, user: user });
+    
+  });
+  
+
 
 
   app.post('/pop-seat', async (req, res) => {
     try {
-      const id = req.session.user.id;
+      const id = req.session.id;
       const selectedSeat = req.body.seat; // 클라이언트에서 선택한 좌석
+      console.log('Selected Seat:', selectedSeat);
       const sector = selectedSeat.split('-')[0]; // 좌석에서 섹터 부분 추출
-      const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${sector}/${id}`);
+      
+      const response = await axios.get(`http://localhost:5000/get-seat-data/${sector}/${id}`);
       
       if (response.status === 200) {    
         const seat_id = response.data.seat_id;
@@ -287,7 +328,7 @@
     try {
       const seat = req.params.seat;
       const id = req.params.id;
-      const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${seat}/${id}`);
+      const response = await axios.get(`http://localhost:5000/get-seat-data/${seat}/${id}`);
       const seat_id= response.data.seat_id;
       res.status(200).json({ seat_id });
     } catch (error) {
@@ -300,7 +341,7 @@
   app.get('/get-booking-info/:id', async (req, res) =>{
     try{
       const id = req.params.id;
-      const dynamoDBresponse = await axios.get(`http://wy-py-svc:5000/get-booking-info/${id}`);
+      const dynamoDBresponse = await axios.get(`http://localhost:5000/get-booking-info/${id}`);
       const seat_id = dynamoDBresponse.data.seat_id;
       res.status(200).json({ seat_id });
 
