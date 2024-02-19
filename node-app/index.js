@@ -278,6 +278,26 @@
     res.render('index', data);
   });
 
+ app.get('/events/:id', (req, res) => {
+    
+    // URL 파라미터에서 이벤트 ID 가져오기
+    const eventId = req.params.id;
+  
+    // 이벤트 ID를 기반으로 해당 이벤트 정보를 찾기
+    const event = events.find(event => event.id === parseInt(eventId));
+  
+    // 해당 이벤트가 없는 경우 404 에러 반환
+    if (!event) {
+      return res.status(404).send('Event not found');
+    }
+    // 세션에서 사용자 정보 가져오기
+    const user = req.session.user;
+  
+    // 상세 페이지 템플릿을 렌더링하고, 이벤트 데이터를 전달
+    res.render('event-details', { event: event, user: user });
+    
+  });
+
 
 
   app.post('/pop-seat', async (req, res) => {
