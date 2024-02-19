@@ -243,16 +243,17 @@
     res.render('events-1', { pageTitle, user: user });
   });
 
+
   app.get('/', (req, res) => {
     // 렌더링할 데이터를 객체로 전달
     const data = {
       pageTitle: '티켓팅 웹사이트',
       events: [
-        { name: '이벤트1', date: '2024-01-13', title: '길' },
-        { name: '이벤트2', date: '2024-06-30', title: '"우쥬"대스타의 팬미팅' },
+        { id:1,name: '이벤트1', date: '2024-01-13', title: '길' },
+        { id:2, name: '이벤트2', date: '2024-03-15', title: '우쥬대스타의 "서울" 팬미팅' },
         // 추가 이벤트들...
       ],
-      user: req.session.user,
+      user: req.session.user
     };
 
     // index.ejs 템플릿을 렌더링하고, 데이터를 전달
