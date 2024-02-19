@@ -2,13 +2,11 @@ from flask import Flask, jsonify, request
 import redis
 from flask_cors import CORS
 from awsConfig import get_dynamodb_resource
-import boto3
-from botocore.exceptions import ClientError
 
 app = Flask(__name__)
 CORS(app,supports_credentials=True)
 
-redis_host = 'init-redis-cluster.tfsu7r.ng.0001.apn2.cache.amazonaws.com'
+redis_host = '3.34.192.127'
 redis_port = 6379
 
 dynamodb = get_dynamodb_resource()
