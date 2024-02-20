@@ -30,14 +30,14 @@ def get_seat_data(sector, id):
         # Redis 클라이언트 생성
         r = redis.Redis(host=redis_host, port=redis_port)
 
-        resp = table.get_item(
-            Key={
-                'users.id': int(id)
-            }
-        )
+        # resp = table.get_item(
+        #     Key={
+        #         'users.id': int(id)
+        #     }
+        # )
 
-        if 'Item' in resp:
-            return jsonify({"seat_id": -1})
+        # if 'Item' in resp:
+        #     return jsonify({"seat_id": -1})
 
         # 데이터 가져오기
         value = r.lpop(f"{sector}-sector")
@@ -47,7 +47,7 @@ def get_seat_data(sector, id):
             # Redis에서 가져온 데이터
             seat_id = value.decode("utf-8")
 
-            # # DynamoDB에 데이터 입력
+            # DynamoDB에 데이터 입력
             putitem = {
                 'users.id': int(id),
                 'seat_id': seat_id
