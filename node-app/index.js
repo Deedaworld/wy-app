@@ -305,7 +305,7 @@
       const id = req.session.user.id;
       const selectedSeat = req.body.seat; // 클라이언트에서 선택한 좌석
       const sector = selectedSeat.split('-')[0]; // 좌석에서 섹터 부분 추출
-      const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${sector}/${id}`);
+      const response = await axios.get(`http://wy-sector-svc:5000/get-seat-data/${sector}/${id}`);
       
       if (response.status === 200) {    
         const seat_id = response.data.seat_id;
@@ -326,7 +326,7 @@
     try {
       const seat = req.params.seat;
       const id = req.params.id;
-      const response = await axios.get(`http://wy-py-svc:5000/get-seat-data/${seat}/${id}`);
+      const response = await axios.get(`http://wy-sector-svc:5000/get-seat-data/${seat}/${id}`);
       const seat_id= response.data.seat_id;
       res.status(200).json({ seat_id });
     } catch (error) {
@@ -339,7 +339,7 @@
   app.get('/get-booking-info/:id', async (req, res) =>{
     try{
       const id = req.params.id;
-      const dynamoDBresponse = await axios.get(`http://wy-py-svc:5000/get-booking-info/${id}`);
+      const dynamoDBresponse = await axios.get(`http://wy-sector-svc:5000/get-booking-info/${id}`);
       const seat_id = dynamoDBresponse.data.seat_id;
       res.status(200).json({ seat_id });
 
