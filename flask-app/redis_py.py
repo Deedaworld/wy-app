@@ -43,9 +43,9 @@ def get_seat_data(sector, id):
         value = r.lpop(f"{sector}-sector")
         print("Value from Redis:", value)
         
-        # if value:
-        #     # Redis에서 가져온 데이터
-        #     seat_id = value.decode("utf-8")
+        if value:
+            # Redis에서 가져온 데이터
+            seat_id = value.decode("utf-8")
 
         #     # DynamoDB에 데이터 입력
         #     putitem = {
@@ -59,9 +59,9 @@ def get_seat_data(sector, id):
         #         Item=putitem
         #     )
 
-        #     return jsonify({"seat_id": seat_id})
-        # else:
-        #     return jsonify({"seat_id": None})
+            return jsonify({"seat_id": seat_id})
+        else:
+            return jsonify({"seat_id": None})
 
     except Exception as e:
         return jsonify({"error": str(e)})
