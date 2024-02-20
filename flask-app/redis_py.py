@@ -6,7 +6,7 @@ from awsConfig import get_dynamodb_resource
 app = Flask(__name__)
 CORS(app,supports_credentials=True)
 
-redis_host = 'proxy-1708323750872-init-serverless.proxy-czuy8ksq2pce.ap-northeast-2.rds.amazonaws.com'
+redis_host = 'init-redis-cluster.tfsu7r.ng.0001.apn2.cache.amazonaws.com'
 redis_port = 6379
 
 dynamodb = get_dynamodb_resource()
