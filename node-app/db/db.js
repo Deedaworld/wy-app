@@ -4,7 +4,7 @@ const mysql = require('mysql');
 const util = require('util');
 //RDS 연동
 const dbInfo = {
-    host: 'proxy-1708323750872-init-serverless.proxy-czuy8ksq2pce.ap-northeast-2.rds.amazonaws.com',
+    host: 'init-mysql.czuy8ksq2pce.ap-northeast-2.rds.amazonaws.com ',
     user: 'admin',
     password: 'test1234',
     database: 'init_serverless',
