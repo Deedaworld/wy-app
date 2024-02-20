@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3 as build
 RUN mkdir -p /usr/src/app/ticket
 WORKDIR /usr/src/app/ticket
 COPY . .
