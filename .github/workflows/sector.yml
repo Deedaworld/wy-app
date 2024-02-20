@@ -29,6 +29,14 @@ jobs:
         echo "IMAGE_TAG=${{ github.run_number }}" >> $GITHUB_ENV
         echo "GIT_EMAIL=jydianasuh@gmail.com" >> $GITHUB_ENV
         echo "GIT_NAME=deedaworld" >> $GITHUB_ENV
+
+    # tonistiigi/binfmt 이미지를 이용해 qemu 설치
+    - name: Docker Setup QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+
+    # docker buildx 설치
+    - name: Docker Setup Buildx
+      uses: docker/setup-buildx-action@v1.6.0
     
     - name: Set up Python
       uses: actions/setup-python@v3
