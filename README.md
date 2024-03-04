@@ -1,4 +1,5 @@
-서비스 및 CI/CD에 대한 자세한 상세 설명은 https://deedaworld.notion.site/STEP-4-395337c8c8074656899517ba56db1621?pvs=4  참조
+서비스 및 CI/CD에 대한 자세한 상세 설명은 다음 참조
+https://bit.ly/aws-1-1-final-project
 
 ### ✨ 대규모 글로벌 트래픽을 빠르고 안정적으로 처리하는 선예매 티켓팅 웹앱 서비스
 
