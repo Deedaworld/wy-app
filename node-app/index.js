@@ -23,7 +23,7 @@
   const cookieParser = require('cookie-parser');
 
   axios.defaults.withCredentials = true;
-  
+
   // EJS 템플릿 엔진 설정
   app.engine('ejs', ejs.renderFile);
   app.set('view engine', 'ejs');
