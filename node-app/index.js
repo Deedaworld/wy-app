@@ -53,7 +53,6 @@
   const cors = require('cors');
   app.use(cors());
 
-
   app.use(express.static('public'));
   //미들웨어를 사용하여 정적 파일을 서빙할때 MIME 타입을 설정할 수 있다.
   app.use('/public', express.static(path.join(__dirname, 'public'), { 
@@ -288,7 +287,7 @@
       name: '이벤트2',
       date: '2024-03-15',
       title: '우쥬대스타의 "서울" 팬미팅',
-      imageUrl: '/public/images/우주팬미팅.png' 
+      imageUrl: '/public/images/우주팬미팅.png' 
     },
     
   ];
